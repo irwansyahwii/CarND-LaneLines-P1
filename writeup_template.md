@@ -23,25 +23,22 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
+My pipeline consisted of 7 asteps. But to find those 7 steps I have to build my own Python class toolkit so I can solve the problem using OOP.
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
-
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
-
-![alt text][image1]
+1. I converted the image to HSL
+2. I created 2 masks filtered by yellow and white color based on my own tools to find the appropriate cv.inrange() parameters 
+3. Then I combined both masks into one image using bitwise_or()
+4. The next step would be to mask the resulting image with the viewport mask image
+5. After that I ran the canny algorithm to detect the boundaries. It should be easy to find boundaries because the remaining pixels should contains only the lane lines
+6. Once I got the boundaries I can pass it to houglines() to produce the lines
+7. I filtered out the incorrect lines and produce the straight line using the y = ax + b equation and simple statistic to choose the lines that grouped most as the winner. Then I make sure I store the last drawn lines and use it if the next frame I fail to recognize the lines.
 
 
 ### 2. Identify potential shortcomings with your current pipeline
 
-
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
-
+My pipeline works for all the challenge videos. The current drawback is I only draw straight lines while the real lanes is a curve lines.
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
+To draw curve lines to make it as real as the real lanes
 
-Another potential improvement could be to ...
